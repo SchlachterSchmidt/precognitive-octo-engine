@@ -1,0 +1,19 @@
+#OS generated files #
+######################
+*/.DS_Store
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+### untracked project files
+__pycache__/*
+__pycache__
+.shadow
+.shadow/*
+migrations
+migrations/*
