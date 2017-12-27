@@ -17,3 +17,6 @@ __pycache__
 .shadow/*
 migrations
 migrations/*
+.ipynb_checkpoints
+.ipynb_checkpoints/*
+
