@@ -54,10 +54,10 @@ dirlist = ['/sample', '/sample/test', '/sample/train', '/sample/train/c0',
            '/valid/c4', '/valid/c5', '/valid/c6', '/valid/c7', '/valid/c8',
            '/valid/c9', '/results']
 
-for dir in dirlist:
-    path = DATA_DIR + dir
+for directory in dirlist:
+    path = DATA_DIR + directory
     if not os.path.exists(path):
-        os.mkdir(DATA_DIR + dir)
+        os.mkdir(DATA_DIR + directory)
         print("created: ", path)
     else:
         print("already exists: ", path)
