@@ -1,3 +1,6 @@
+"""Simple linear Model to predict driver attention."""
+
+
 import sys
 
 from keras.models import Sequential
@@ -24,13 +27,13 @@ results_path = path.joinpath('tesults')
 # training variables
 batch_size = 10
 epochs = 5
-learning_rate = 1e-5
+learning_rate = 1e-3
 
 
 # getting training and validation data in batches
-batches = get_in_batches(train_path)
-val_batches = get_in_batches(val_path)
-test_batches = get_in_batches(test_path)
+batches = get_in_batches(train_path, batch_size=batch_size)
+val_batches = get_in_batches(val_path, batch_size=batch_size)
+test_batches = get_in_batches(test_path, batch_size=batch_size)
 
 
 # and getting the classes, labels and filenames for each batch
@@ -63,3 +66,25 @@ history = model.fit_generator(batches,
 
 
 plot_acc_and_loss(history)
+
+
+# validating the model performance on the val set
+rnd_batches = get_in_batches(val_path, batch_size=batch_size*2, shuffle=True)
+val_res = [model.evaluate_generator(rnd_batches, rnd_batches.samples) for i in range(epochs)]
+np.round(val_res, 3)
+
+
+# test performance and plot confusion matrix on one batch of 200 images
+test_set = get_in_batches(val_path,
+                          shuffle=False,
+                          class_mode=None,
+                          batch_size=200)
+pred_classes = model.predict_generator(test_set, 1)
+pred_classes = np.argmax(pred_classes, axis=1)
+act_classes = test_set.classes
+
+
+cm = confusion_matrix(act_classes, pred_classes)
+plot_confusion_matrix(cm, val_batches.class_indices)
+plt.figure()
+plt.show()
