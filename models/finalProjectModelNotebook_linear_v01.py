@@ -30,7 +30,7 @@ epochs = 5
 
 # getting training and validation data in batches
 gen=image.ImageDataGenerator()
-batches = gen.flow_from_directory(train_path
+batches = gen.flow_from_directory(train_path,
                                   target_size=(224,224),
                                   class_mode='categorical',
                                   shuffle=True,
