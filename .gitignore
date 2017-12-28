@@ -13,6 +13,7 @@ Thumbs.db
 ### untracked project files
 __pycache__/*
 __pycache__
+__init__.py
 .shadow
 .shadow/*
 migrations
