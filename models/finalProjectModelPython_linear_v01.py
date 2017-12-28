@@ -8,8 +8,6 @@ from keras.optimizers import Adam
 from keras.preprocessing import image
 from keras.utils.np_utils import to_categorical
 
-import matplotlib.pyplot as plt
-
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from utils.utils import *
 
