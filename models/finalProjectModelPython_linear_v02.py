@@ -54,7 +54,7 @@ model.compile(Adam(lr=learning_rate),
 model.summary()
 
 
-# fit_generator() consuming the batches provided by the ImageDataGenerator
+# fit_generator() consuming the images provided by the get_in_batches method
 history = model.fit_generator(batches,
                               steps_per_epoch=batches.batch_size,
                               validation_data=val_batches,

@@ -1,16 +1,17 @@
 import os
 import sys
 
-import theano.gpuarray
-from keras.layers import BatchNormalization, Dense, Flatten
+# import theano.gpuarray
 from keras.models import Sequential
+from keras.layers import BatchNormalization, Dense, Flatten
 from keras.optimizers import Adam
 from keras.preprocessing import image
 from keras.utils.np_utils import to_categorical
 
-## both lines only needed if importing from utils module
-# sys.path.insert(1, os.path.join(sys.path[0], '..'))
-# from utils.utils import *
+import matplotlib.pyplot as plt
+
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from utils.utils import *
 
 current_dir = os.getcwd()
 HOME_DIR = current_dir
@@ -24,17 +25,15 @@ val_path = path + '/valid/'
 test_path = path + '/test/'
 results_path = path + '/results/'
 
-batch_size = 64
+# training variables
+batch_size = 10
 epochs = 5
+learning_rate = 1e-5
 
 
 # getting training and validation data in batches
 gen=image.ImageDataGenerator()
-batches = gen.flow_from_directory(train_path,
-                                  target_size=(224,224),
-                                  class_mode='categorical',
-                                  shuffle=True,
-                                  batch_size=batch_size)
+batches = get_in_batches(train_path)
 val_batches = gen.flow_from_directory(val_path,
                                       target_size=(224,224),
                                       class_mode='categorical',
