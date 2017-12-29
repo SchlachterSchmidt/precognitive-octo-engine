@@ -64,7 +64,7 @@ for directory in dirlist:
 
 
 print('creating /sample/test data set')
-cd(DATA_DIR + 'test')
+cd(DATA_DIR + 'test/unknown')
 g = glob('*.jpg')
 shuf = numpy.random.permutation(g)
 for i in range(sample_test_size):
