@@ -71,7 +71,7 @@ plot_acc_and_loss(history)
 # validating the model performance on the val set
 rnd_batches = get_in_batches(val_path, batch_size=batch_size*2, shuffle=True)
 val_res = [model.evaluate_generator(rnd_batches, rnd_batches.samples) for i in range(epochs)]
-np.round(val_res, 3)
+print(np.round(val_res, 3))
 
 
 # test performance and plot confusion matrix on one batch of 200 images
