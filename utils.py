@@ -9,11 +9,12 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.preprocessing import image
-from keras.utils.np_utils import to_categorical
+from keras.utils import to_categorical
 from sklearn.metrics import confusion_matrix
 
 
 def get_in_batches(dirname,
+                   augment=False,
                    gen=image.ImageDataGenerator(),
                    shuffle=True,
                    batch_size=32,
@@ -23,10 +24,24 @@ def get_in_batches(dirname,
     Wrapper method, take path and return image data iterator.
 
     To be used with Keras model fit_generator method.
+    If augment is set to True, will use the following params:
+        - rotation_range = 15
+        - height_shift_range = 0.05
+        - shear_range = 0.1
+        - channel_shift_range = 20
+        - width_shift_range = 0.1
 
     Official Documentation:
     https://keras.io/preprocessing/image/
     """
+
+    if augment:
+        gen = image.ImageDataGenerator(rotation_range=15,
+                                       height_shift_range=0.05,
+                                       shear_range=0.1,
+                                       channel_shift_range=20,
+                                       width_shift_range=0.1)
+
     return gen.flow_from_directory(dirname,
                                    target_size=target_size,
                                    class_mode=class_mode,
