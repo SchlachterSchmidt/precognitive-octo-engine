@@ -10,7 +10,24 @@ import matplotlib.pyplot as plt
 import numpy as np
 from keras.preprocessing import image
 from keras.utils import to_categorical
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from sklearn.metrics import confusion_matrix
+
+
+reduce_lr = ReduceLROnPlateau(monitor='val_loss',
+                                  factor=0.2,
+                                  patience=2,
+                                  verbose=1,
+                                  mode='min',
+                                  min_lr=1e-6)
+
+
+stop_early = EarlyStopping(monitor='val_loss',
+                               patience=3,
+                               verbose=1,
+                               mode='min',
+                               min_delta=0
+                               )
 
 
 def get_in_batches(dirname,
