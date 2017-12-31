@@ -1,16 +1,22 @@
 """Module contains a range of Utility functions.
 
-Module is adapted from:
+Some module content is adapted from:
 https://github.com/fastai/courses/blob/master/deeplearning1/nbs/utils.py
 """
+
+import os
+import datetime
+from pathlib import Path
 
 import itertools
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from keras.preprocessing import image
 from keras.utils import to_categorical
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
+
 from sklearn.metrics import confusion_matrix
 
 
@@ -57,7 +63,8 @@ def get_in_batches(dirname,
                                        height_shift_range=0.05,
                                        shear_range=0.1,
                                        channel_shift_range=20,
-                                       width_shift_range=0.1)
+                                       width_shift_range=0.1,
+                                       vertical_flip=True)
 
     return gen.flow_from_directory(dirname,
                                    target_size=target_size,
@@ -121,6 +128,21 @@ def plot_confusion_matrix(cm, classes, normalize=False,
     plt.xlabel('Predicted label')
 
 
+def plots(ims, figsize=(12,6), rows=1, interp=False, titles=None):
+    if type(ims[0]) is np.ndarray:
+        ims = np.array(ims).astype(np.uint8)
+        if (ims.shape[-1] != 3):
+            ims = ims.transpose((0,2,3,1))
+    f = plt.figure(figsize=figsize)
+    cols = len(ims)//rows if len(ims) % 2 == 0 else len(ims)//rows + 1
+    for i in range(len(ims)):
+        sp = f.add_subplot(rows, cols, i+1)
+        sp.axis('Off')
+        if titles is not None:
+            sp.set_title(titles[i], fontsize=16)
+        plt.imshow(ims[i], interpolation=None if interp else 'none')
+        
+        
 def load_image(img_path, show=False):
     """Take image path and retun 4d image tensor.
 
@@ -137,3 +159,22 @@ def load_image(img_path, show=False):
         plt.show()
 
     return img_tensor
+
+
+def save_model(model, filename):
+    """Take model and filename as args and save to file."""
+    
+    dirname = 'savedModels/' + str(datetime.date.today())
+    path = Path.cwd().joinpath(dirname)
+    
+    json_file = filename + '.json'
+    h5_file = filename + '.h5'
+
+    if not path.exists():
+        os.mkdirs(path)
+    
+    model_json = model.to_json()
+    with open(json_file, "w") as json_file:
+        json_file.write(model_json)
+
+    model.save('CNN_two_convs_30122017_1700.h5')
