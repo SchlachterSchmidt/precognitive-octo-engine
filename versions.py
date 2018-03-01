@@ -1,3 +1,5 @@
+"""Quickly check versions of installed tools."""
+
 import platform
 print("python: %s" % platform.python_version())
 
@@ -18,4 +20,3 @@ print("numpy: %s" % numpy.__version__)
 
 import scipy
 print("scipy: %s" % scipy.__version__)
-

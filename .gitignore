@@ -22,3 +22,5 @@ migrations/*
 .ipynb_checkpoints/*
 data
 data/*
+.utils.py.swp
+savedModels/*.h5
