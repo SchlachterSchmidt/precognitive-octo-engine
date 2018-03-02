@@ -1,4 +1,4 @@
-"""Refeed manually captured data to the classifier."""
+"""Export images for classifier retraining."""
 import argparse
 import datetime
 import os
