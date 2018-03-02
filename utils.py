@@ -68,8 +68,17 @@ def get_in_batches(dirname,
 
     return gen.flow_from_directory(dirname,
                                    target_size=target_size,
-                                   class_mode=class_mode,
                                    shuffle=shuffle,
+                                   batch_size=batch_size,
+                                   class_mode=class_mode)
+
+def get_val_data_in_batches(dirname,
+                            target_size=(224, 224),
+                            batch_size=32,
+                            gen = image.ImageDataGenerator()):
+
+    return gen.flow_from_directory(dirname,
+                                   target_size=target_size,
                                    batch_size=batch_size)
 
 
