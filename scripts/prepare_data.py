@@ -6,13 +6,11 @@ sets.
 Creates a validation set for the full data set from the training set.
 """
 
-
 import os
 from shutil import copyfile
 from glob import glob
 import numpy
 from numpy.random import permutation
-
 
 def change_dir(path_name):
     """Util function to safely cd into directory."""
@@ -23,13 +21,11 @@ def change_dir(path_name):
         print("unable to cd into %S\naborting...", path_name)
         quit()
 
-
 FULL_PATH = os.path.realpath(__file__)
 PATH, FILENAME = os.path.split(FULL_PATH)
 PARENT_DIR = Path(PATH).parent
 
 os.chdir(PARENT_DIR)
-
 
 DATA_DIR = PARENT_DIR.joinpath('data')
 
@@ -42,7 +38,6 @@ SAMPLE_TRN_SIZE = 100
 SAMPLE_VAL_SIZE = 20
 SAMPLE_TEST_SIZE = 1000
 VAL_SIZE = 500
-
 
 DIR_LIST = ['/sample', '/sample/test', '/sample/train', '/sample/train/c0',
             '/sample/train/c1', '/sample/train/c2', '/sample/train/c3',
@@ -64,14 +59,12 @@ for directory in DIR_LIST:
     else:
         print("already exists: ", path)
 
-
 print('creating /sample/test data set')
 change_dir(DATA_DIR + 'test/')
 g = glob('*.jpg')
 SHUF = numpy.random.permutation(g)
 for i in range(SAMPLE_TEST_SIZE):
     copyfile(SHUF[i], DATA_DIR + '/sample/test/' + SHUF[i])
-
 
 for j in range(10):
     change_dir(DATA_DIR + 'train/c' + str(j))

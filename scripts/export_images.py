@@ -25,25 +25,21 @@ def init():
     args = parser.parse_args()
 
     if args.dev:
-        print('Dev config')
         db_url = os.environ['DEV_DATABASE_URL']
         bucket_name = os.environ['DEV_S3_BUCKET']
     if args.test:
-        print('Test config')
         db_url = os.environ['TEST_DATABASE_URL']
         bucket_name = os.environ['TEST_S3_BUCKET']
     if args.production:
-        print('Prod config')
         db_url = os.environ['PRD_DATABASE_URL']
         bucket_name = os.environ['PRD_S3_BUCKET']
-
 
     change_and_create_dir(args.dir)
 
     user, password, host, port, database = re.match(
         'postgresql://(.*?):(.*?)@(.*?):(.*?)/(.*)', db_url).groups()
     get_non_exported_images(user, password, host, database, bucket_name)
-    print("exiting")
+    print("done")
 
 def update_image_ref_after_export(user, password, host, database, image_id):
     """Update image ref to mark as exported."""
@@ -96,7 +92,6 @@ def pull_from_s3(bucket_name, file_name):
 
     try:
         s3.Object(bucket_name, file_name).download_file(file_name)
-        #print("yupp, trying to dopwnload")
     except botocore.exceptions.ClientError as exception:
         print(exception.response)
         if exception.response['Error']['Code'] == "404":

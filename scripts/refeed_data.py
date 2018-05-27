@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 import requests
 
-
 def init():
 
     parser = argparse.ArgumentParser()
@@ -103,7 +102,6 @@ def init():
         print(probs)
         count = count - 1
         print("remaining: %d" % count)
-
 
 if __name__ == "__main__":
     init()
