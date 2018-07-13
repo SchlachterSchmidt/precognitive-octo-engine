@@ -1,8 +1,4 @@
-"""Module contains a range of Utility functions.
-
-Some module content is adapted from:
-https://github.com/fastai/courses/blob/master/deeplearning1/nbs/utils.py
-"""
+"""Module contains a range of Utility functions."""
 
 import os
 import datetime
